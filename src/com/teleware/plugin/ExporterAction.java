@@ -4,7 +4,10 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DataKeys;
+import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
+
+import java.awt.*;
 
 /**
  * Created by miaoj on 2017/2/28.
@@ -12,9 +15,12 @@ import com.intellij.openapi.vfs.VirtualFile;
 public class ExporterAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
-        // TODO: insert action logic here
-        ExporterUI exportSoeMain = new ExporterUI();
-        exportSoeMain.setVisible(true);
+        VirtualFile virtualFile = e.getDataContext().getData(DataKeys.VIRTUAL_FILE);
+
+        ExporterUI exporterUI = new ExporterUI(virtualFile.getPath(), ProjectRootManager.getInstance(e.getProject()).getProjectSdk().getHomePath());
+        exporterUI.setSize(new Dimension(600,200));
+        exporterUI.setLocationRelativeTo(null);
+        exporterUI.setVisible(true);
     }
 
     @Override
