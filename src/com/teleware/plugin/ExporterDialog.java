@@ -2,14 +2,16 @@ package com.teleware.plugin;
 
 import com.esri.arcgis.tools.SOEPackager;
 import com.intellij.openapi.ui.Messages;
+import org.bouncycastle.jcajce.provider.symmetric.DES;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
-public class ExporterUI extends JDialog {
+public class ExporterDialog extends JDialog {
 
+    private Description description;
     private String jarPath;
     private String jdkPath;
 
@@ -22,9 +24,11 @@ public class ExporterUI extends JDialog {
     private JTextField textJdkPath;
     private JTextField textSoePath;
     private JButton btnSoe;
+    private JButton buttonProperty;
 
-    public ExporterUI(String jarPath, String jdkPath) {
+    public ExporterDialog(String jarPath, String jdkPath) {
         this.jarPath = jarPath;
+        description = new Description(this.jarPath);
         File file = new File(jarPath);
         this.textSoePath.setText(file.getParent());
         this.jdkPath = jdkPath;
@@ -34,24 +38,13 @@ public class ExporterUI extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        btnJar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onBtnJarClick();
-            }
-        });
+        btnJar.addActionListener(e -> onBtnJarClick());
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
+
+        buttonProperty.addActionListener(e -> onButtonPropertyClick());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -75,7 +68,7 @@ public class ExporterUI extends JDialog {
             args[0] = textJarPath.getText();
             args[1] = textSoePath.getText();
             args[2] = textJdkPath.getText();
-            args[3] = "Name=SimpleRESTSOE,Description=,Version=1.0,Author=Mo,Company=Company,Date=2017/03/01 周三,Targets=10.2,libjars=";
+            args[3] = this.description.toString();
             SOEPackager.main(args);
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,5 +89,13 @@ public class ExporterUI extends JDialog {
             String path = fileDialog.getDirectory() + "\\" + fileDialog.getFile();
             Messages.showInfoMessage(path, "");
         }
+    }
+
+    private void onButtonPropertyClick() {
+        PropertyDialog dialog = new PropertyDialog(this.description);
+        dialog.setSize(new Dimension(600, 600));
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        this.description = dialog.getDescription();
     }
 }

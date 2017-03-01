@@ -8,6 +8,7 @@ import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
 
 import java.awt.*;
+import java.net.InetAddress;
 
 /**
  * Created by miaoj on 2017/2/28.
@@ -17,10 +18,10 @@ public class ExporterAction extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         VirtualFile virtualFile = e.getDataContext().getData(DataKeys.VIRTUAL_FILE);
         String homePath = ProjectRootManager.getInstance(e.getProject()).getProjectSdk().getHomePath();
-        ExporterUI exporterUI = new ExporterUI(virtualFile.getPath(), homePath);
-        exporterUI.setSize(new Dimension(600,200));
-        exporterUI.setLocationRelativeTo(null);
-        exporterUI.setVisible(true);
+        ExporterDialog exporterDialog = new ExporterDialog(virtualFile.getPath(), homePath);
+        exporterDialog.setSize(new Dimension(600,300));
+        exporterDialog.setLocationRelativeTo(null);
+        exporterDialog.setVisible(true);
     }
 
     @Override
