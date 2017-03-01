@@ -16,8 +16,8 @@ public class ExporterAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         VirtualFile virtualFile = e.getDataContext().getData(DataKeys.VIRTUAL_FILE);
-
-        ExporterUI exporterUI = new ExporterUI(virtualFile.getPath(), ProjectRootManager.getInstance(e.getProject()).getProjectSdk().getHomePath());
+        String homePath = ProjectRootManager.getInstance(e.getProject()).getProjectSdk().getHomePath();
+        ExporterUI exporterUI = new ExporterUI(virtualFile.getPath(), homePath);
         exporterUI.setSize(new Dimension(600,200));
         exporterUI.setLocationRelativeTo(null);
         exporterUI.setVisible(true);

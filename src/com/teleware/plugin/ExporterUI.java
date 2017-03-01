@@ -1,24 +1,12 @@
 package com.teleware.plugin;
 
 import com.esri.arcgis.tools.SOEPackager;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.process.DefaultJavaProcessHandler;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.openapi.wm.ToolWindowFactory;
-import com.intellij.openapi.wm.ToolWindowManager;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 public class ExporterUI extends JDialog {
 
@@ -87,7 +75,7 @@ public class ExporterUI extends JDialog {
             args[0] = textJarPath.getText();
             args[1] = textSoePath.getText();
             args[2] = textJdkPath.getText();
-            args[3] = "soe,soe";
+            args[3] = "Name=SimpleRESTSOE,Description=,Version=1.0,Author=Mo,Company=Company,Date=2017/03/01 周三,Targets=10.2,libjars=";
             SOEPackager.main(args);
         } catch (Exception e) {
             e.printStackTrace();
