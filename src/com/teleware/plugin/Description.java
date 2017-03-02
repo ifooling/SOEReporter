@@ -25,7 +25,7 @@ public class Description {
     }
 
     public Description(String jarPath) {
-        this.name = FilenameUtils.getName(jarPath);
+        this.name = FilenameUtils.getBaseName(jarPath);
         this.description = this.name;
         this.version = "1.0.0";
         this.author = "admin";

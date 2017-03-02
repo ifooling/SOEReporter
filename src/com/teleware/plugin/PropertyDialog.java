@@ -18,7 +18,7 @@ public class PropertyDialog extends JDialog {
     private JTextField textLibjars;
 
     public PropertyDialog(Description description) {
-
+        this.description = description;
         textName.setText(description.getName());
         textDescription.setText(description.getDescription());
         textVersion.setText(description.getVersion());

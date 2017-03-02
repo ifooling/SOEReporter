@@ -93,7 +93,7 @@ public class ExporterDialog extends JDialog {
 
     private void onButtonPropertyClick() {
         PropertyDialog dialog = new PropertyDialog(this.description);
-        dialog.setSize(new Dimension(600, 600));
+        dialog.setSize(new Dimension(600, 400));
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         this.description = dialog.getDescription();

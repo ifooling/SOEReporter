@@ -25,3 +25,5 @@ hs_err_pid*
 
 /.idea/
 !/lib/commons-io-2.2.jar
+/SOEReporter.iml
+/out/
