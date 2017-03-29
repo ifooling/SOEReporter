@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="arcgis-soepackager">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/arcgis-soepackager.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/arcgis-soepackager.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

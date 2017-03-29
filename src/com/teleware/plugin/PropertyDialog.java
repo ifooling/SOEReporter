@@ -1,7 +1,12 @@
 package com.teleware.plugin;
 
+import com.intellij.openapi.ui.Messages;
+import org.apache.commons.lang.StringUtils;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class PropertyDialog extends JDialog {
     private Description description;
@@ -16,6 +21,7 @@ public class PropertyDialog extends JDialog {
     private JTextField textDate;
     private JTextField textTargets;
     private JTextField textLibjars;
+    private JButton buttonThirdJar;
 
     public PropertyDialog(Description description) {
         this.description = description;
@@ -32,17 +38,11 @@ public class PropertyDialog extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
+
+        buttonThirdJar.addActionListener(e -> onButtonThirdJarClick());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -58,6 +58,19 @@ public class PropertyDialog extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onButtonThirdJarClick() {
+        FileDialog fileDialog = new FileDialog(this, "请选择三方jar文件", FileDialog.LOAD);
+        fileDialog.setFilenameFilter((dir, name) -> name.endsWith(".jar"));
+        fileDialog.setFile("*.jar");
+        fileDialog.setDirectory(".");
+        fileDialog.setMultipleMode(true);
+        fileDialog.setVisible(true);
+        if (!fileDialog.getFiles().equals(null)) {
+            String jarValue = StringUtils.join(fileDialog.getFiles(), " ");
+            textLibjars.setText(jarValue);
+        }
     }
 
     private void onOK() {
